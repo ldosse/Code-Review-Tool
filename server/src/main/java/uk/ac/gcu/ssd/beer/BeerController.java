@@ -23,6 +23,14 @@ public class BeerController {
         .collect(Collectors.toList());
   }
 
+//  @CrossOrigin(origins = "http://localhost:8081")
+//  @PostMapping("/code-review")
+//  public Collection<Beer> goodBeers() {
+//    return repository.findAll().stream()
+//        .filter(this::isGreat)
+//        .collect(Collectors.toList());
+//  }
+
   private boolean isGreat(Beer beer) {
     return !beer.getName().equals("Budweiser") &&
         !beer.getName().equals("Coors Light") &&

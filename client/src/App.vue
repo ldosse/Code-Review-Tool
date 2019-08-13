@@ -4,7 +4,8 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
       <template v-if="authenticated"> |
-        <router-link to="/beer-list">Good Beers</router-link>
+        <router-link to="/beer-list">Good Beers</router-link> |
+        <router-link to="/code-review">Code Review</router-link> |
       </template>
     </div>
     <button v-if="authenticated" v-on:click="logout">Logout</button>
@@ -19,7 +20,7 @@
     @Component
     export default class App extends Vue {
         public authenticated: boolean = false;
-        public token: string='';
+        // public token: string='';
         private created() {
             this.isAuthenticated();
         }
@@ -27,13 +28,14 @@
         @Watch('$route')
         private async isAuthenticated() {
             this.authenticated = await this.$auth.isAuthenticated();
-            this.token = await this.$auth.getAccessToken();
+            Vue.prototype.$token = await this.$auth.getAccessToken();
+            // this.token = await this.$auth.getAccessToken();
         }
 
         private async logout() {
             await this.$auth.logout();
             await this.isAuthenticated();
-
+            Vue.prototype.$token = '';
             // Navigate back to home
             this.$router.push({path: '/'});
         }

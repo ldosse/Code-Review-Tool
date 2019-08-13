@@ -9,9 +9,15 @@ import org.springframework.core.Ordered;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+
+import uk.ac.gcu.ssd.storage.*;
 
 import java.util.Collections;
 
+@EnableConfigurationProperties({
+		FileStorageProperties.class
+})
 @EnableResourceServer
 @SpringBootApplication
 public class DemoApplication {

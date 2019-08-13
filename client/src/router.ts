@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Home from './views/Home.vue';
 import OktaVuePlugin from '@okta/okta-vue';
 import BeerList from '@/components/BeerList.vue';
+import CodeReview from "@/components/CodeReview.vue";
 
 Vue.use(Router);
 Vue.use(OktaVuePlugin, {
@@ -33,6 +34,14 @@ const router = new Router({
       path: '/beer-list',
       name: 'beer-list',
       component: BeerList,
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: '/code-review',
+      name: 'code-review',
+      component: CodeReview,
       meta: {
         requiresAuth: true,
       },
