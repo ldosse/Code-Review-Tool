@@ -1,17 +1,25 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Home from './views/Home.vue';
+import OktaVuePlugin from '@okta/okta-vue';
+import BeerList from '@/components/BeerList.vue';
 
-Vue.use(Router)
+Vue.use(Router);
+Vue.use(OktaVuePlugin, {
+  issuer: 'https://dev-367104.okta.com/oauth2/default',
+  client_id: '0oa13btk7dw1zh2KV357',
+  redirect_uri: window.location.origin + '/implicit/callback',
+  scope: 'openid profile email',
+});
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
     },
     {
       path: '/about',
@@ -19,7 +27,21 @@ export default new Router({
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    }
-  ]
-})
+      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+    },
+    {
+      path: '/beer-list',
+      name: 'beer-list',
+      component: BeerList,
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    { path: '/implicit/callback', component: OktaVuePlugin.handleCallback() },
+  ],
+});
+
+router.beforeEach(Vue.prototype.$auth.authRedirectGuard());
+
+export default router;
+
