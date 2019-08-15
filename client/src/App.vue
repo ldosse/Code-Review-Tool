@@ -1,15 +1,14 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-      <template v-if="authenticated"> |
-        <router-link to="/beer-list">Good Beers</router-link> |
-        <router-link to="/code-review">Code Review</router-link> |
+      <router-link to="/">Home</router-link>&nbsp
+      <template v-if="authenticated">|
+        <router-link to="/code-review">Code Review</router-link>&nbsp
       </template>
+      <button v-if="authenticated" v-on:click="logout">Logout</button>
+      <button v-else v-on:click="$auth.loginRedirect()">Login</button>
     </div>
-    <button v-if="authenticated" v-on:click="logout">Logout</button>
-    <button v-else v-on:click="$auth.loginRedirect()">Login</button>
+
     <router-view/>
   </div>
 </template>
@@ -52,14 +51,22 @@
   }
   #nav {
     padding: 30px;
+    color: whitesmoke;
+    background-color: #097496;
+    /*lightseagreen;*/
   }
 
   #nav a {
     font-weight: bold;
-    color: #2c3e50;
+    color: whitesmoke;
+    /*color: #2c3e50;*/
   }
 
   #nav a.router-link-exact-active {
-    color: #42b983;
+    color: paleturquoise;
+    /*color: #42b983;*/
+  }
+  button{
+    text-align: right;
   }
 </style>

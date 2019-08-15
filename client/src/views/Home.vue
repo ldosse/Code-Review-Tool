@@ -1,10 +1,10 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <h1>Beer List</h1>
-    <div v-for="beer in beers">
-      {{ beer.name }}
-    </div>
+    <h1>Code Review App</h1>
+      <p>Welcome to the Code reviewer app. You can submit your java code and receive a generated report
+          on identified vulnerabilities in your code.</p>
+      <img alt="Code Reviewer logo" src="../assets/logo.png">
+
   </div>
 </template>
 
