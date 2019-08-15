@@ -37,12 +37,14 @@ public class Analyzer {
     if(file!=null && file.exists()){
 //      System.out.println("--------------------------------------------------------------------------------");
       ReportGenerator sqlReport = sqlInjectionInspector.findSQLVulnerabilities(file);
-//      System.out.println("--------------------------------------------------------------------------------");
 //      System.out.println(sqlReport.getReport());
       ReportGenerator osReport = osCommandInjectionInspector.findOSCommandInjection(file);
       ReportGenerator finalizeReport = finalizeInspector.findOSCommandInjection(file);
       String compileReport = compileReports(new ReportGenerator[]{sqlReport, osReport, finalizeReport});
       System.out.println(compileReport);
+      System.out.println("--------------------------------------------------------------------------------");
+      System.out.println(file.getAbsolutePath());
+      System.out.println(file.delete());
       return compileReport;
     }
     return null;
@@ -52,9 +54,9 @@ public class Analyzer {
     String compiledReport = "";
     for (ReportGenerator reportGenerator:reportGenerators) {
       compiledReport+=reportGenerator.getVulnerability();
-      compiledReport+="\n____________________________________________________________________________\n";
+      compiledReport+="<br/>____________________________________________________________________________<br/>";
       compiledReport += (reportGenerator.getReport()!="") ? reportGenerator.getReport() : "None detected";
-      compiledReport+="\n";
+      compiledReport+="<br/>";
 //      compiledReport+="\n____________________________________________________________________________\n";
     }
     return compiledReport;

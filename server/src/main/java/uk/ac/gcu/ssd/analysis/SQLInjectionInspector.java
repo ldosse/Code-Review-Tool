@@ -67,6 +67,7 @@ public class SQLInjectionInspector {
             "You can close it with the method close().",-1);
 
       }
+      bufferedReader.close();
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     } catch (IOException e) {

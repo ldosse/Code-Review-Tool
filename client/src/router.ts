@@ -3,7 +3,7 @@ import Router from 'vue-router';
 import Home from './views/Home.vue';
 import OktaVuePlugin from '@okta/okta-vue';
 import BeerList from '@/components/BeerList.vue';
-import CodeReview from "@/components/CodeReview.vue";
+import CodeReview from '@/components/CodeReview.vue';
 
 Vue.use(Router);
 Vue.use(OktaVuePlugin, {

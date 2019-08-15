@@ -29,7 +29,8 @@ public class FileController {
 
   @CrossOrigin(origins = "http://localhost:8081")
   @PostMapping("/code-review")
-  public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
+  @ResponseBody
+  public String uploadFile(@RequestParam("file") MultipartFile file) {
     String fileName = fileStorageService.storeFile(file);
 
     String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -43,23 +44,25 @@ public class FileController {
     Resource resource = fileStorageService.loadFileAsResource(fileName);
     try {
       Analyzer analyzer = new Analyzer();
-      analyzer.analyze(resource.getFile());
-      resource.getFile().deleteOnExit();
+      String report = analyzer.analyze(resource.getFile());
+//      resource.getFile().deleteOnExit();
+//      resource.getFile().delete();
+      return report;
     } catch (IOException e) {
       e.printStackTrace();
     }
-
-    return new UploadFileResponse(fileName, fileDownloadUri,
-        file.getContentType(), file.getSize());
+    return "ERROR";
+//    return new UploadFileResponse(fileName, fileDownloadUri,
+//        file.getContentType(), file.getSize());
   }
 
-  @PostMapping("/uploadMultipleFiles")
-  public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-    return Arrays.asList(files)
-        .stream()
-        .map(file -> uploadFile(file))
-        .collect(Collectors.toList());
-  }
+//  @PostMapping("/uploadMultipleFiles")
+//  public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
+//    return Arrays.asList(files)
+//        .stream()
+//        .map(file -> uploadFile(file))
+//        .collect(Collectors.toList());
+//  }
 
   @GetMapping("/downloadFile/{fileName:.+}")
   public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {

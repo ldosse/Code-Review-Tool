@@ -31,6 +31,8 @@ public class OSCommandInjectionInspector {
           }
         }
       }
+      bufferedReader.close();
+
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     } catch (IOException e) {

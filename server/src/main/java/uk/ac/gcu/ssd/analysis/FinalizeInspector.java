@@ -26,6 +26,8 @@ public class FinalizeInspector {
           this.report.makeReport("You are using finalize with public access. make it protected." ,counter);
         }
       }
+      bufferedReader.close();
+
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     } catch (IOException e) {

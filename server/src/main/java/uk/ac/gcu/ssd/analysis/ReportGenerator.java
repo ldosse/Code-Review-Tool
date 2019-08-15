@@ -19,9 +19,9 @@ public class ReportGenerator {
 
   public void makeReport(String statement, int line){
     if (line==-1)
-      this.report += statement+"\n";
+      this.report += statement+"<br/>";
     else
-    this.report += "Line "+line+" : "+statement+"\n";
+    this.report += "Line "+line+" : "+statement+"<br/>";
   }
 
 }
