@@ -1,5 +1,6 @@
 package uk.ac.gcu.ssd.controllers;
 
+import uk.ac.gcu.ssd.analysis.Analyzer;
 import uk.ac.gcu.ssd.controllers.UploadFileResponse;
 import uk.ac.gcu.ssd.storage.FileStorageService;
 import org.slf4j.Logger;
@@ -39,6 +40,15 @@ public class FileController {
     System.out.println("************************************************************************************" +
             "**************************************************************************");
     System.out.println(fileDownloadUri);
+    Resource resource = fileStorageService.loadFileAsResource(fileName);
+    try {
+      Analyzer analyzer = new Analyzer();
+      analyzer.analyze(resource.getFile());
+      resource.getFile().deleteOnExit();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
     return new UploadFileResponse(fileName, fileDownloadUri,
         file.getContentType(), file.getSize());
   }

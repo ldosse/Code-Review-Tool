@@ -1,5 +1,7 @@
 package uk.ac.gcu.ssd.storage;
 
+import uk.ac.gcu.ssd.exceptions.FileStorageException;
+import uk.ac.gcu.ssd.exceptions.MyFileNotFoundException;
 import uk.ac.gcu.ssd.storage.FileStorageProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -47,8 +49,8 @@ public class FileStorageService {
 
       return fileName;
     } catch (IOException ex) {
-      return "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ";
-//      throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
+//      return "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ";
+      throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
     }
   }
 
@@ -59,14 +61,10 @@ public class FileStorageService {
       if(resource.exists()) {
         return resource;
       } else {
-        return null;
-//        throw new MyFileNotFoundException("File not found " + fileName);
+        throw new MyFileNotFoundException("File not found " + fileName);
       }
     } catch (MalformedURLException ex) {
-//      throw ex;
-      return null;
-//      return "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
-//      throw new MyFileNotFoundException("File not found " + fileName, ex);
+      throw new MyFileNotFoundException("File not found " + fileName, ex);
     }
   }
 }
