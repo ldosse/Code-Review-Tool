@@ -22,9 +22,8 @@ public class OSCommandInjectionInspector {
         counter++;
         System.out.println(line);
         fileRead += line;
-        if (setPattern(".*\\.exec.*").matcher(line).matches()){
-          this.report.makeReport("You are using an OS command. You should avoid creating a new OS process and use built-in Java " +
-              "functionality instead.",counter);
+        if (setPattern(".*\\.exec\\(.*").matcher(line).matches()){
+          this.report.makeReport("You are using an OS command. You should avoid creating a new OS process and use built-in Java functionality instead.",counter);
           if (!setPattern(".*\\.exec\\(\".*").matcher(line).matches()){
             this.report.makeReport("You are also using a potentially tamperable parameter. Make sure you have sanitized your " +
                 "parameter. You can use `{param}.replaceAll(\"[^a-z0-9\\-\\.]\",\"\")` to sanitize it.",counter);

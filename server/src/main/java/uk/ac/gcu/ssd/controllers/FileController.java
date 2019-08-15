@@ -38,31 +38,18 @@ public class FileController {
         .path(fileName)
         .toUriString();
 
-    System.out.println("************************************************************************************" +
-            "**************************************************************************");
     System.out.println(fileDownloadUri);
     Resource resource = fileStorageService.loadFileAsResource(fileName);
     try {
       Analyzer analyzer = new Analyzer();
       String report = analyzer.analyze(resource.getFile());
-//      resource.getFile().deleteOnExit();
-//      resource.getFile().delete();
       return report;
     } catch (IOException e) {
       e.printStackTrace();
     }
     return "ERROR";
-//    return new UploadFileResponse(fileName, fileDownloadUri,
-//        file.getContentType(), file.getSize());
   }
 
-//  @PostMapping("/uploadMultipleFiles")
-//  public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-//    return Arrays.asList(files)
-//        .stream()
-//        .map(file -> uploadFile(file))
-//        .collect(Collectors.toList());
-//  }
 
   @GetMapping("/downloadFile/{fileName:.+}")
   public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {

@@ -39,18 +39,13 @@ public class SQLInjectionInspector {
       BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
       String fileRead = "";
       String line;
-      Boolean sql;
       Boolean openConnection = false;
-      Boolean dynamicQueries=false;
-      List<Integer> dynamicQueriesLines;
       int counter = 0;
       while ((line = bufferedReader.readLine()) != null){
         counter++;
-        System.out.println(line);
         fileRead += line;
         setPattern(".*(SELECT|UPDATE|DELETE|ALTER|INSERT|DROP).*");
         if (getMatcher(line).matches()){
-          System.out.println("____________________________________________________________________________");
           if (line.contains("+")){
             this.report.makeReport("Dynamic Querying detected. Potential vulnerability for SQL injections. " +
                 "Consider using prepared statements.",counter);
@@ -87,32 +82,4 @@ public class SQLInjectionInspector {
   }
 
 
-
-  //        List<String> lineList = line.split("")
-//      startingWord = ;
-//  findConnection();
-//
-//      if()
-//
-//          if (line.startsWith("import")){
-//    if(line.contains("sql")){
-//      sql=true;
-//    }
-//  }else
-//
-//      switch (line.startsWith()){
-//    case "import":
-//  }
-
-//    if(contains SQL|QUERY)
-//      if(servlet)
-//      if(DAO)
-//        does it contain autoclosable interface??
-//      if contains query||select or delete or etc
-//          is it final statement?
-//          does it use prepared statements
-//      are there ty catch statements
-//      if contains connection and
-//            does it close connection
-//          do you use create statement directly? => use prepared instead
 }

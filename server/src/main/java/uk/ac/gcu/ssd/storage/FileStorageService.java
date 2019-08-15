@@ -29,7 +29,7 @@ public class FileStorageService {
     try {
       Files.createDirectories(this.fileStorageLocation);
     } catch (Exception ex) {
-//      throw new FileStorageException("Could not create the directory where the uploaded files will be stored.", ex);
+      throw new FileStorageException("Could not create the directory where the uploaded files will be stored.", ex);
     }
   }
 
@@ -40,7 +40,7 @@ public class FileStorageService {
     try {
       // Check if the file's name contains invalid characters
       if(fileName.contains("..")) {
-//        throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
+        throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
       }
 
       // Copy file to the target location (Replacing existing file with the same name)
@@ -49,7 +49,6 @@ public class FileStorageService {
 
       return fileName;
     } catch (IOException ex) {
-//      return "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ";
       throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
     }
   }
